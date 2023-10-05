@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
+//Einkaufslisten model
 @Entity (tableName = "shopping_list_names")
 data class ShoppingListNames(
     @PrimaryKey (autoGenerate = true)
