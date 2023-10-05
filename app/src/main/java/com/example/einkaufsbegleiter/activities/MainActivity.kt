@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.databinding.ActivityMainBinding
+import com.example.einkaufsbegleiter.fragments.FragmentManager
+import com.example.einkaufsbegleiter.fragments.NoteFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("MyLog", "Settings")
                 }
                 R.id.notes ->{
+                    FragmentManager.setFragment(NoteFragment.newInstance(), this)
                     Log.d("MyLog", "Notes")
                 }
                 R.id.shop_list ->{
