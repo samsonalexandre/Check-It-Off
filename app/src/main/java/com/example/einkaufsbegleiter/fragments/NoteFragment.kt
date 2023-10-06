@@ -1,5 +1,6 @@
 package com.example.einkaufsbegleiter.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.activities.MainApp
+import com.example.einkaufsbegleiter.activities.NewNoteActivity
 import com.example.einkaufsbegleiter.databinding.FragmentNoteBinding
 import com.example.einkaufsbegleiter.db.MainViewModel
 
@@ -18,7 +20,7 @@ class NoteFragment : BaseFragment() {
         MainViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
     }
     override fun onClickNew() {
-
+        startActivity(Intent(activity, NewNoteActivity::class.java))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
