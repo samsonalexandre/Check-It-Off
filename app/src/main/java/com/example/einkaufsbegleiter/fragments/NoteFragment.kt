@@ -72,25 +72,41 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
     // Diese Funktion behandelt das Ergebnis, wenn eine neue Notiz erstellt wird.
     private fun onEditResult() {
         editLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()) {
+            ActivityResultContracts.StartActivityForResult()
+        ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                mainViewModel.insertNote(it.data?.getSerializableExtra(NEW_NOTE_KEY) as NoteItem )
-                //Log.d("MyLog", "title: ${it.data?.getStringExtra(TITLE_KEY)}")
-                //Log.d("MyLog", "description: ${it.data?.getStringExtra(DESC_KEY)}")
+                val editState = it.data?.getStringExtra(EDIT_STATE_KEY)
+                if (editState == "update") {
+                    mainViewModel.updateNote(it.data?.getSerializableExtra(NEW_NOTE_KEY) as NoteItem)
+                } else {
+                    mainViewModel.insertNote(it.data?.getSerializableExtra(NEW_NOTE_KEY) as NoteItem)
+                    //Log.d("MyLog", "title: ${it.data?.getStringExtra(TITLE_KEY)}")
+                    //Log.d("MyLog", "description: ${it.data?.getStringExtra(DESC_KEY)}")
+                }
             }
         }
     }
 
-    companion object {
-        const val NEW_NOTE_KEY = "new_note_key"
-//        const val TITLE_KEY = "title_key"
-//        const val DESC_KEY = "desc_key"
-        @JvmStatic
-        fun newInstance() = NoteFragment()
-
-    }
 
     override fun deleteItem(id: Int) {
         mainViewModel.deleteNote(id)
+    }
+
+    override fun onClickItem(note: NoteItem) {
+        val intent = Intent(activity, NewNoteActivity::class.java).apply {
+            putExtra(NEW_NOTE_KEY, note)
+        }
+        editLauncher.launch(intent)
+    }
+
+    companion object {
+        const val NEW_NOTE_KEY = "new_note_key"
+        const val EDIT_STATE_KEY = "edit_state_key"
+
+        // const val TITLE_KEY = "title_key"
+        // const val DESC_KEY = "desc_key"
+        @JvmStatic
+        fun newInstance() = NoteFragment()
+
     }
 }

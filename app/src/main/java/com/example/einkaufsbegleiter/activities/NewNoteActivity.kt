@@ -17,6 +17,7 @@ import java.util.Locale
 class NewNoteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewNoteBinding
+    private var note: NoteItem? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewNoteBinding.inflate(layoutInflater)
@@ -24,8 +25,21 @@ class NewNoteActivity : AppCompatActivity() {
 
         // Hier werden die Einstellungen für die Action Bar festgelegt.
         actionBarSettings()
+        getNote()
     }
 
+    private fun getNote() {
+        val sNote = intent.getSerializableExtra(NoteFragment.NEW_NOTE_KEY)
+        if (sNote != null) {
+            note = sNote as NoteItem
+            fillNote()
+        }
+    }
+
+    private fun fillNote() = with(binding) {
+        edTitle.setText(note?.title)
+        edDescription.setText(note?.content)
+    }
     // Diese Funktion erstellt das Optionsmenü in der Action Bar.
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.new_note_menu, menu)
@@ -45,14 +59,30 @@ class NewNoteActivity : AppCompatActivity() {
 
     // Diese Funktion legt das Ergebnis für die Hauptaktivität fest, wenn eine Notiz gespeichert wird.
     private fun setMainResult() {
+        var editState = "new"
+        val tempNote: NoteItem?
+        if (note == null) {
+            tempNote = createNewNote()
+        } else {
+            editState = "update"
+            tempNote = updateNote()
+        }
         val i = Intent().apply {
-            putExtra(NoteFragment.NEW_NOTE_KEY, createNewNote())
+            putExtra(NoteFragment.NEW_NOTE_KEY, tempNote)
+            putExtra(NoteFragment.EDIT_STATE_KEY, editState)
 
 //            putExtra(NoteFragment.TITLE_KEY, binding.edTitle.text.toString())
 //            putExtra(NoteFragment.DESC_KEY, binding.edDescription.text.toString())
         }
         setResult(RESULT_OK, i)
         finish()
+    }
+
+    private fun updateNote(): NoteItem? = with (binding) {
+        return note?.copy(
+            title = edTitle.text.toString(),
+            content = edDescription.text.toString()
+            )
     }
 
     // Diese Funktion erstellt eine neue Notiz.

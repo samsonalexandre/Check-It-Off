@@ -29,6 +29,9 @@ class NoteAdapter(private val listener: Listener): ListAdapter<NoteItem, NoteAda
             tvTitle.text = note.title
             tvDescription.text = note.content
             tvTime.text = note.time
+            itemView.setOnClickListener {
+                listener.onClickItem(note)
+            }
             imDelete.setOnClickListener {
                 listener.deleteItem(note.id!!)
             }
@@ -56,5 +59,6 @@ class NoteAdapter(private val listener: Listener): ListAdapter<NoteItem, NoteAda
 
     interface Listener {
         fun deleteItem(id: Int)
+        fun onClickItem(note: NoteItem)
     }
 }
