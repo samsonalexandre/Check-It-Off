@@ -10,6 +10,7 @@ import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.databinding.NoteListItemBinding
 import com.example.einkaufsbegleiter.entities.NoteItem
 
+// Diese Klasse ist ein RecyclerView-Adapter für Notizen.
 class NoteAdapter: ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComporator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -20,6 +21,7 @@ class NoteAdapter: ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComporator(
         holder.setData(getItem(position))
     }
 
+    // Diese innere Klasse repräsentiert einen Eintrag in der RecyclerView.
     class ItemHolder(view: View): RecyclerView.ViewHolder(view) {
         private val binding = NoteListItemBinding.bind(view)
         fun setData(note: NoteItem) = with(binding) {
@@ -36,6 +38,7 @@ class NoteAdapter: ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComporator(
         }
     }
 
+    // Diese innere Klasse vergleicht Einträge für die RecyclerView.
     class ItemComporator: DiffUtil.ItemCallback<NoteItem>() {
         override fun areItemsTheSame(oldItem: NoteItem, newItem: NoteItem): Boolean {
             return oldItem.id == newItem.id

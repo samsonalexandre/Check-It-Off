@@ -6,6 +6,7 @@ import androidx.room.Query
 import com.example.einkaufsbegleiter.entities.NoteItem
 import kotlinx.coroutines.flow.Flow
 
+// Dieses Interface definiert die Datenbankzugriffsmethoden für Notizen.
 @Dao
 interface Dao {
     @Query ("SELECT * FROM note_list")

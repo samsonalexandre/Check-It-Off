@@ -9,14 +9,18 @@ import com.example.einkaufsbegleiter.entities.NoteItem
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
+// Diese Klasse ist ein ViewModel für die Notizen.
 class MainViewModel(database: MainDatabase): ViewModel() {
     private val dao = database.getDao()
 
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
+
+    // Diese Funktion fügt eine Notiz zur Datenbank hinzu.
     fun insertNote(note: NoteItem) = viewModelScope.launch {
         dao.insertNote(note)
     }
 
+    // Diese innere Klasse ist eine ViewModel Factory.
     class MainViewModelFactory(private val database: MainDatabase): ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(MainViewModel::class.java)) {

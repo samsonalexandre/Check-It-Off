@@ -12,20 +12,26 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.activities.MainApp
 import com.example.einkaufsbegleiter.activities.NewNoteActivity
 import com.example.einkaufsbegleiter.databinding.FragmentNoteBinding
 import com.example.einkaufsbegleiter.db.MainViewModel
+import com.example.einkaufsbegleiter.db.NoteAdapter
+import com.example.einkaufsbegleiter.entities.NoteItem
 
-
+// Diese Klasse repräsentiert das Fragment zur Anzeige von Notizen.
 class NoteFragment : BaseFragment() {
     private lateinit var binding: FragmentNoteBinding
     private lateinit var editLauncher: ActivityResultLauncher<Intent>
+    private lateinit var adapter: NoteAdapter
 
     private val mainViewModel: MainViewModel by activityViewModels {
         MainViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
     }
+
+    // Diese Funktion wird aufgerufen, wenn auf "Neu" geklickt wird.
     override fun onClickNew() {
         editLauncher.launch(Intent(activity, NewNoteActivity::class.java))
     }
@@ -43,19 +49,42 @@ class NoteFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRcView()
+        observer()
+    }
+
+    // Diese Funktion initialisiert die RecyclerView für die Anzeige von Notizen.
+    private fun initRcView() = with(binding) {
+        rcViewNote.layoutManager = LinearLayoutManager(activity)
+        adapter = NoteAdapter()
+        rcViewNote.adapter = adapter
+    }
+
+    // Diese Funktion beobachtet Änderungen an der Liste von Notizen.
+    private fun observer() {
+        mainViewModel.allNotes.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+    }
+
+    // Diese Funktion behandelt das Ergebnis, wenn eine neue Notiz erstellt wird.
     private fun onEditResult() {
         editLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
-                Log.d("MyLog", "title: ${it.data?.getStringExtra(TITLE_KEY)}")
-                Log.d("MyLog", "description: ${it.data?.getStringExtra(DESC_KEY)}")
+                mainViewModel.insertNote(it.data?.getSerializableExtra(NEW_NOTE_KEY) as NoteItem )
+                //Log.d("MyLog", "title: ${it.data?.getStringExtra(TITLE_KEY)}")
+                //Log.d("MyLog", "description: ${it.data?.getStringExtra(DESC_KEY)}")
             }
         }
     }
 
     companion object {
-        const val TITLE_KEY = "title_key"
-        const val DESC_KEY = "desc_key"
+        const val NEW_NOTE_KEY = "new_note_key"
+//        const val TITLE_KEY = "title_key"
+//        const val DESC_KEY = "desc_key"
         @JvmStatic
         fun newInstance() = NoteFragment()
 

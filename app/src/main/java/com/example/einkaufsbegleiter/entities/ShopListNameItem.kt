@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-//Einkaufslisten model
+// Diese Klasse repräsentiert ein Einkaufslisten-Objekt.
 @Entity (tableName = "shopping_list_names")
 data class ShopListNameItem(
     @PrimaryKey (autoGenerate = true)

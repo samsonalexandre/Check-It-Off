@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
+// Diese Klasse repräsentiert ein Notiz-Objekt.
 @Entity (tableName = "note_list")
 data class NoteItem (
     @PrimaryKey (autoGenerate = true)

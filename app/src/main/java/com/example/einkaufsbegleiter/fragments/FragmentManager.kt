@@ -3,6 +3,7 @@ package com.example.einkaufsbegleiter.fragments
 import androidx.appcompat.app.AppCompatActivity
 import com.example.einkaufsbegleiter.R
 
+// Diese Objektklasse verwaltet Fragmente in meiner App.
 object FragmentManager {
     var currentFrag: BaseFragment? = null
 

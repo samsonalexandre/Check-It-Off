@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// Diese Klasse repräsentiert ein Eintrag in einer Einkaufsliste.
 @Entity (tableName = "shop_list_item")
 data class ShopListItem(
     @PrimaryKey (autoGenerate = true)
