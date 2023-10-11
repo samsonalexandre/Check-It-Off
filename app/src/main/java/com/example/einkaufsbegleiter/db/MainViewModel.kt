@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.einkaufsbegleiter.entities.NoteItem
+import com.example.einkaufsbegleiter.entities.ShopListNameItem
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
@@ -14,10 +15,15 @@ class MainViewModel(database: MainDatabase): ViewModel() {
     private val dao = database.getDao()
 
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
+    val allShopListNamesItem: LiveData<List<ShopListNameItem>> = dao.getAllShopListNames().asLiveData()
 
     // Diese Funktion fügt eine Notiz zur Datenbank hinzu.
     fun insertNote(note: NoteItem) = viewModelScope.launch {
         dao.insertNote(note)
+    }
+
+    fun insertShopListName(listName: ShopListNameItem) = viewModelScope.launch {
+        dao.insertShopListName(listName)
     }
 
     fun updateNote(note: NoteItem) = viewModelScope.launch {

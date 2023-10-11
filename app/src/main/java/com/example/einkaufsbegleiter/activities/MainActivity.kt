@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.databinding.ActivityMainBinding
+import com.example.einkaufsbegleiter.dialogs.NewListDialog
 import com.example.einkaufsbegleiter.fragments.FragmentManager
 import com.example.einkaufsbegleiter.fragments.NoteFragment
+import com.example.einkaufsbegleiter.fragments.ShopListNamesFragment
 
 // Diese Klasse repräsentiert die Hauptaktivität der App.
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NewListDialog.Listener {
     private lateinit var binding: ActivityMainBinding
 
     // Diese Funktion wird aufgerufen, wenn die Aktivität erstellt wird.
@@ -17,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        FragmentManager.setFragment(ShopListNamesFragment.newInstance(), this)
 
         // Hier wird ein Listener für die Bottom Navigation View gesetzt.
         setBottomNavListener()
@@ -34,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("MyLog", "Notes")
                 }
                 R.id.shop_list ->{
+                    FragmentManager.setFragment(ShopListNamesFragment.newInstance(), this)
                     Log.d("MyLog", "List")
                 }
                 R.id.new_item ->{
@@ -43,5 +48,9 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onClick(name: String) {
+        Log.d("MyLog", "$name")
     }
 }
