@@ -1,14 +1,18 @@
 package com.example.einkaufsbegleiter.activities
 
 import android.content.Intent
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
 import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.databinding.ActivityNewNoteBinding
 import com.example.einkaufsbegleiter.entities.NoteItem
 import com.example.einkaufsbegleiter.fragments.NoteFragment
+import com.example.einkaufsbegleiter.utils.HtmlManager
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -38,8 +42,9 @@ class NewNoteActivity : AppCompatActivity() {
 
     private fun fillNote() = with(binding) {
         edTitle.setText(note?.title)
-        edDescription.setText(note?.content)
+        edDescription.setText(HtmlManager.getFromHtml(note?.content!!))
     }
+
     // Diese Funktion erstellt das Optionsmenü in der Action Bar.
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.new_note_menu, menu)
@@ -52,9 +57,28 @@ class NewNoteActivity : AppCompatActivity() {
             setMainResult()
         } else if (item.itemId == android.R.id.home) {
             finish()
+        } else if (item.itemId == R.id.id_bold) {
+            setBoldForSelectedText()
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setBoldForSelectedText() = with(binding) {
+        val startPos = edDescription.selectionStart
+        val endPos = edDescription.selectionEnd
+
+        val styles = edDescription.text.getSpans(startPos, endPos, StyleSpan::class.java)
+        var boldStyle: StyleSpan? = null
+        if (styles.isNotEmpty()) {
+            edDescription.text.removeSpan(styles[0])
+        } else {
+            boldStyle = StyleSpan(Typeface.BOLD)
+        }
+
+        edDescription.text.setSpan(boldStyle, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        edDescription.text.trim()
+        edDescription.setSelection(startPos)
     }
 
     // Diese Funktion legt das Ergebnis für die Hauptaktivität fest, wenn eine Notiz gespeichert wird.
@@ -81,7 +105,7 @@ class NewNoteActivity : AppCompatActivity() {
     private fun updateNote(): NoteItem? = with (binding) {
         return note?.copy(
             title = edTitle.text.toString(),
-            content = edDescription.text.toString()
+            content = HtmlManager.toHtml(edDescription.text)
             )
     }
 
@@ -90,7 +114,7 @@ class NewNoteActivity : AppCompatActivity() {
         return NoteItem(
             null,
             binding.edTitle.text.toString(),
-            binding.edDescription.text.toString(),
+            HtmlManager.toHtml(binding.edDescription.text),
             getCurrentTime(),
             ""
         )

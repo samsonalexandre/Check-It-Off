@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.databinding.NoteListItemBinding
 import com.example.einkaufsbegleiter.entities.NoteItem
+import com.example.einkaufsbegleiter.utils.HtmlManager
 
 // Diese Klasse ist ein RecyclerView-Adapter für Notizen.
 class NoteAdapter(private val listener: Listener): ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComporator()) {
@@ -27,7 +28,7 @@ class NoteAdapter(private val listener: Listener): ListAdapter<NoteItem, NoteAda
 
         fun setData(note: NoteItem, listener: Listener) = with(binding) {
             tvTitle.text = note.title
-            tvDescription.text = note.content
+            tvDescription.text = HtmlManager.getFromHtml(note.content).trim()
             tvTime.text = note.time
             itemView.setOnClickListener {
                 listener.onClickItem(note)
