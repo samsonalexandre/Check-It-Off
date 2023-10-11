@@ -7,17 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.einkaufsbegleiter.activities.MainApp
 import com.example.einkaufsbegleiter.databinding.FragmentShopListNamesBinding
 import com.example.einkaufsbegleiter.db.MainViewModel
+import com.example.einkaufsbegleiter.db.ShopListNameAdapter
+import com.example.einkaufsbegleiter.dialogs.DeleteDialog
 import com.example.einkaufsbegleiter.dialogs.NewListDialog
 import com.example.einkaufsbegleiter.entities.ShopListNameItem
 import com.example.einkaufsbegleiter.utils.TimeManager
 
 
-class ShopListNamesFragment : BaseFragment() {
+class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
     private lateinit var binding: FragmentShopListNamesBinding
-
+    private lateinit var adapter: ShopListNameAdapter
 
     private val mainViewModel: MainViewModel by activityViewModels {
         MainViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
@@ -39,7 +42,7 @@ class ShopListNamesFragment : BaseFragment() {
                 mainViewModel.insertShopListName(shopListName)
             }
 
-        })
+        }, "")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,12 +66,14 @@ class ShopListNamesFragment : BaseFragment() {
 
 
     private fun initRcView() = with(binding) {
-
+        rcView.layoutManager = LinearLayoutManager(activity)
+        adapter = ShopListNameAdapter(this@ShopListNamesFragment)
+        rcView.adapter = adapter
     }
 
     private fun observer() {
         mainViewModel.allShopListNamesItem.observe(viewLifecycleOwner) {
-
+            adapter.submitList(it)
         }
     }
 
@@ -77,5 +82,28 @@ class ShopListNamesFragment : BaseFragment() {
         @JvmStatic
         fun newInstance() = ShopListNamesFragment()
 
+    }
+
+    override fun deleteItem(id: Int) {
+        DeleteDialog.showDialog(context as AppCompatActivity, object : DeleteDialog.Listener {
+            override fun onClick() {
+                mainViewModel.deleteShopListName(id)
+            }
+
+        })
+    }
+
+    override fun editItem(shopListName: ShopListNameItem) {
+        NewListDialog.showDialog(activity as AppCompatActivity, object : NewListDialog.Listener {
+            override fun onClick(name: String) {
+                Log.d("MyLog", "Name: $name")
+                mainViewModel.updateListName(shopListName.copy(name = name))
+            }
+
+        }, shopListName.name)
+    }
+
+    override fun onClickItem(shopListName: ShopListNameItem) {
+        TODO("Not yet implemented")
     }
 }

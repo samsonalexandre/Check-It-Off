@@ -29,9 +29,16 @@ class MainViewModel(database: MainDatabase): ViewModel() {
     fun updateNote(note: NoteItem) = viewModelScope.launch {
         dao.updateNote(note)
     }
+    fun updateListName(shopListName: ShopListNameItem) = viewModelScope.launch {
+        dao.updateListName(shopListName)
+    }
 
     fun deleteNote(id: Int) = viewModelScope.launch {
         dao.deleteNote(id)
+    }
+
+    fun deleteShopListName(id: Int) = viewModelScope.launch {
+        dao.deleteShopListName(id)
     }
 
     // Diese innere Klasse ist eine ViewModel Factory.
