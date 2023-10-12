@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 // Diese Klasse repräsentiert ein Notiz-Objekt.
-@Entity (tableName = "note_list")
+@Entity (tableName = "note_list") //Diese Annotation gibt den Namen der Tabelle in der Datenbank an, in der diese Entität gespeichert wird.
 data class NoteItem (
     @PrimaryKey (autoGenerate = true)
     val id: Int?, // Die eindeutige ID der Notiz (wird automatisch generiert).

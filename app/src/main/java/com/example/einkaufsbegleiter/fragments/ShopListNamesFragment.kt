@@ -1,5 +1,6 @@
 package com.example.einkaufsbegleiter.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.einkaufsbegleiter.activities.MainApp
+import com.example.einkaufsbegleiter.activities.ShopListActivity
 import com.example.einkaufsbegleiter.databinding.FragmentShopListNamesBinding
 import com.example.einkaufsbegleiter.db.MainViewModel
 import com.example.einkaufsbegleiter.db.ShopListNameAdapter
@@ -98,18 +100,21 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
     }
 
     // Diese Funktion wird aufgerufen, wenn ein Eintrag bearbeitet werden soll.
-    override fun editItem(shopListName: ShopListNameItem) {
+    override fun editItem(shopListNameItem: ShopListNameItem) {
         NewListDialog.showDialog(activity as AppCompatActivity, object : NewListDialog.Listener {
             override fun onClick(name: String) {
                 Log.d("MyLog", "Name: $name")
-                mainViewModel.updateListName(shopListName.copy(name = name))
+                mainViewModel.updateListName(shopListNameItem.copy(name = name))
             }
 
-        }, shopListName.name)
+        }, shopListNameItem.name)
     }
 
     // Diese Funktion wird aufgerufen, wenn auf einen Eintrag geklickt wird (bisher nicht implementiert).
-    override fun onClickItem(shopListName: ShopListNameItem) {
-        TODO("Not yet implemented")
+    override fun onClickItem(shopListNameItem: ShopListNameItem) {
+        val i = Intent(activity, ShopListActivity::class.java).apply {
+            putExtra(ShopListActivity.SHOP_LIST_NAME, shopListNameItem)
+        }
+        startActivity(i)
     }
 }

@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 // Diese Klasse repräsentiert ein Eintrag in einer Einkaufsliste.
-@Entity (tableName = "shop_list_item")
+@Entity (tableName = "shop_list_item") //Diese Annotation gibt den Namen der Tabelle in der Datenbank an, in der diese Entität gespeichert wird.
 data class ShopListItem(
     @PrimaryKey (autoGenerate = true)
     val id: Int?, //Dieses Feld repräsentiert die eindeutige Kennung (ID) eines Einkaufsliste-Eintrags und wird automatisch generiert.

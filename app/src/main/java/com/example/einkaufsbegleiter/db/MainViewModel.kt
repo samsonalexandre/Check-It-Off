@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.einkaufsbegleiter.entities.NoteItem
+import com.example.einkaufsbegleiter.entities.ShopListItem
 import com.example.einkaufsbegleiter.entities.ShopListNameItem
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
@@ -19,6 +20,10 @@ class MainViewModel(database: MainDatabase): ViewModel() {
     // LiveData-Objekt, das eine Liste aller Einkaufslisten aus der Datenbank darstellt.
     val allShopListNamesItem: LiveData<List<ShopListNameItem>> = dao.getAllShopListNames().asLiveData()
 
+    fun getAllItemsFromList(listId: Int): LiveData<List<ShopListItem>> {
+        return dao.getAllShopListItems(listId).asLiveData()
+    }
+
     // Diese Funktion fügt eine Notiz zur Datenbank hinzu.
     fun insertNote(note: NoteItem) = viewModelScope.launch {
         dao.insertNote(note)
@@ -27,6 +32,14 @@ class MainViewModel(database: MainDatabase): ViewModel() {
     // Diese Funktion fügt eine Einkaufsliste zur Datenbank hinzu.
     fun insertShopListName(listName: ShopListNameItem) = viewModelScope.launch {
         dao.insertShopListName(listName)
+    }
+
+    fun insertShopItem(shopListItem: ShopListItem) = viewModelScope.launch {
+        dao.insertItem(shopListItem)
+    }
+
+    fun updateListItem(item: ShopListItem) = viewModelScope.launch {
+        dao.updateListItem(item)
     }
 
     // Diese Funktion aktualisiert eine vorhandene Notiz in der Datenbank.

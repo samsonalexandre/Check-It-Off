@@ -34,7 +34,7 @@ class ShopListNameAdapter(private val listener: Listener): ListAdapter<ShopListN
             tvListName.text = shopListNameItem.name
             tvTime.text = shopListNameItem.time
             itemView.setOnClickListener {
-                // Hier können Benutzerinteraktionen auf den Eintrag behandelt werden.
+                listener.onClickItem(shopListNameItem)
             }
 
             imDelete.setOnClickListener {
