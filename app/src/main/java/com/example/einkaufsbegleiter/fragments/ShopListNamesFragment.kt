@@ -17,7 +17,7 @@ import com.example.einkaufsbegleiter.dialogs.NewListDialog
 import com.example.einkaufsbegleiter.entities.ShopListNameItem
 import com.example.einkaufsbegleiter.utils.TimeManager
 
-
+// Diese Klasse repräsentiert ein Fragment zur Verwaltung von Einkaufslisten-Namen.
 class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
     private lateinit var binding: FragmentShopListNamesBinding
     private lateinit var adapter: ShopListNameAdapter
@@ -26,7 +26,7 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
         MainViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
     }
 
-
+    // Diese Funktion wird aufgerufen, wenn ein neuer Eintrag erstellt wird.
     override fun onClickNew() {
         NewListDialog.showDialog(activity as AppCompatActivity, object : NewListDialog.Listener {
             override fun onClick(name: String) {
@@ -44,12 +44,13 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
 
         }, "")
     }
-
+    // Diese Funktion wird aufgerufen, wenn das Fragment erstellt wird.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
+    // Diese Funktion erstellt die Ansicht des Fragments.
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,32 +59,35 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
         return binding.root
     }
 
+    // Diese Funktion wird nach dem Erstellen der Ansicht aufgerufen.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRcView()
         observer()
     }
 
-
+    // Diese Funktion initialisiert die RecyclerView.
     private fun initRcView() = with(binding) {
         rcView.layoutManager = LinearLayoutManager(activity)
         adapter = ShopListNameAdapter(this@ShopListNamesFragment)
         rcView.adapter = adapter
     }
 
+    // Diese Funktion beobachtet Änderungen an der Liste von Einkaufslisten-Namen.
     private fun observer() {
         mainViewModel.allShopListNamesItem.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
     }
 
-
+    // Die 'newInstance' Funktion erstellt eine neue Instanz des Fragments.
     companion object {
         @JvmStatic
         fun newInstance() = ShopListNamesFragment()
 
     }
 
+    // Diese Funktion wird aufgerufen, wenn ein Eintrag gelöscht werden soll.
     override fun deleteItem(id: Int) {
         DeleteDialog.showDialog(context as AppCompatActivity, object : DeleteDialog.Listener {
             override fun onClick() {
@@ -93,6 +97,7 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
         })
     }
 
+    // Diese Funktion wird aufgerufen, wenn ein Eintrag bearbeitet werden soll.
     override fun editItem(shopListName: ShopListNameItem) {
         NewListDialog.showDialog(activity as AppCompatActivity, object : NewListDialog.Listener {
             override fun onClick(name: String) {
@@ -103,6 +108,7 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
         }, shopListName.name)
     }
 
+    // Diese Funktion wird aufgerufen, wenn auf einen Eintrag geklickt wird (bisher nicht implementiert).
     override fun onClickItem(shopListName: ShopListNameItem) {
         TODO("Not yet implemented")
     }

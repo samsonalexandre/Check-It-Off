@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+// Diese Klasse verwaltet Zeitbezogene Operationen und bietet Funktionen zur Zeitformatierung.
 object TimeManager {
     // Diese Funktion gibt die aktuelle Zeit als formatierten String zurück.
     fun getCurrentTime(): String {

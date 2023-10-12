@@ -31,6 +31,8 @@ class NewNoteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewNoteBinding
     private var note: NoteItem? = null
+
+    // Diese Funktion wird aufgerufen, wenn die Aktivität erstellt wird.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewNoteBinding.inflate(layoutInflater)
@@ -38,14 +40,17 @@ class NewNoteActivity : AppCompatActivity() {
 
         // Hier werden die Einstellungen für die Action Bar festgelegt.
         actionBarSettings()
+        // Holt die Notizdaten, falls vorhanden.
         getNote()
+        // Initialisiert die Farbauswahl für den Text.
         Companion.init(this)
+        // Setzt den OnClickListener für die Farbauswahl-Buttons.
         onClickColorPicker()
-        //actionMenuCallback()
     }
 
 
 
+    // Statische Funktion zum Initialisieren der Farbauswahl.
     companion object {
         @Suppress("ClickableViewAccessibility")
         private fun init(newNoteActivity: NewNoteActivity) {
@@ -53,6 +58,7 @@ class NewNoteActivity : AppCompatActivity() {
         }
     }
 
+    // Diese Funktion behandelt den Klick auf die Farbauswahl-Buttons.
     private fun onClickColorPicker() = with(binding) {
         imRed.setOnClickListener {
             setColorForSelectedText(R.color.picker_red)
@@ -75,6 +81,7 @@ class NewNoteActivity : AppCompatActivity() {
 
     }
 
+    // Holt die Notizdaten aus dem Intent, falls vorhanden.
     private fun getNote() {
         val sNote = intent.getSerializableExtra(NoteFragment.NEW_NOTE_KEY)
         if (sNote != null) {
@@ -83,6 +90,7 @@ class NewNoteActivity : AppCompatActivity() {
         }
     }
 
+    // Füllt die Ansicht mit den Daten der vorhandenen Notiz.
     private fun fillNote() = with(binding) {
         edTitle.setText(note?.title)
         edDescription.setText(HtmlManager.getFromHtml(note?.content!!).trim())
@@ -97,12 +105,16 @@ class NewNoteActivity : AppCompatActivity() {
     // Diese Funktion behandelt die Auswahl von Optionen im Optionsmenü.
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.id_save) {
+            // Speichert die Notiz und schließt die Aktivität.
             setMainResult()
         } else if (item.itemId == android.R.id.home) {
+            // Schließt die Aktivität, wenn der Zurück-Button in der Action Bar geklickt wird.
             finish()
         } else if (item.itemId == R.id.id_bold) {
-            setBoldForSelectedText(R.color.picker_orange)
+            // Setzt den ausgewählten Text fett.
+            setBoldForSelectedText()
         } else if (item.itemId == R.id.id_color) {
+            // Zeigt oder verbirgt die Farbauswahl für den Text.
             if (binding.colorPicker.isShown) {
                 closeColorPicker()
             } else {
@@ -113,7 +125,8 @@ class NewNoteActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setBoldForSelectedText(pickerOrange: Int) = with(binding) {
+    // Diese Funktion setzt den ausgewählten Text fett.
+    private fun setBoldForSelectedText() = with(binding) {
         val startPos = edDescription.selectionStart
         val endPos = edDescription.selectionEnd
 
@@ -130,6 +143,7 @@ class NewNoteActivity : AppCompatActivity() {
         edDescription.setSelection(startPos)
     }
 
+    // Diese Funktion setzt die Farbe für den ausgewählten Text.
     private fun setColorForSelectedText(colorId: Int) = with(binding) {
         val startPos = edDescription.selectionStart
         val endPos = edDescription.selectionEnd
@@ -151,11 +165,14 @@ class NewNoteActivity : AppCompatActivity() {
         var editState = "new"
         val tempNote: NoteItem?
         if (note == null) {
+            // Erstellt eine neue Notiz, wenn keine vorhanden ist.
             tempNote = createNewNote()
         } else {
+            // Aktualisiert die vorhandene Notiz, wenn eine vorhanden ist.
             editState = "update"
             tempNote = updateNote()
         }
+        // Sendet die Daten zurück an die aufrufende Aktivität.
         val i = Intent().apply {
             putExtra(NoteFragment.NEW_NOTE_KEY, tempNote)
             putExtra(NoteFragment.EDIT_STATE_KEY, editState)
@@ -167,6 +184,7 @@ class NewNoteActivity : AppCompatActivity() {
         finish()
     }
 
+    // Diese Funktion aktualisiert eine vorhandene Notiz.
     private fun updateNote(): NoteItem? = with(binding) {
         return note?.copy(
             title = edTitle.text.toString(),
@@ -193,12 +211,14 @@ class NewNoteActivity : AppCompatActivity() {
         ab?.setDisplayHomeAsUpEnabled(true)
     }
 
+    // Diese Funktion öffnet die Farbauswahl für den Text.
     private fun openColorPicker() {
         binding.colorPicker.visibility = View.VISIBLE
         val openAnim = AnimationUtils.loadAnimation(this, R.anim.open_color_picker)
         binding.colorPicker.startAnimation(openAnim)
     }
 
+    // Diese Funktion schließt die Farbauswahl für den Text.
     private fun closeColorPicker() {
         val openAnim = AnimationUtils.loadAnimation(this, R.anim.close_color_picker)
         openAnim.setAnimationListener(object : Animation.AnimationListener {
@@ -217,31 +237,5 @@ class NewNoteActivity : AppCompatActivity() {
         })
         binding.colorPicker.startAnimation(openAnim)
     }
-
-
-// Text bearbeitungs menü verdecken
-//    private fun actionMenuCallback() {
-//        val actionCallback = object : ActionMode.Callback {
-//            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-//                menu?.clear()
-//                return true
-//            }
-//
-//            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-//                menu?.clear()
-//                return true
-//            }
-//
-//            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-//                return true
-//            }
-//
-//            override fun onDestroyActionMode(mode: ActionMode?) {
-//
-//            }
-//
-//        }
-//        binding.edDescription.customSelectionActionModeCallback = actionCallback
-//    }
 
 }

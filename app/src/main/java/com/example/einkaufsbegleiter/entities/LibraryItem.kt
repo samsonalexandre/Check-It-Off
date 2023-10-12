@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 @Entity (tableName = "library")
 data class LibraryItem(
     @PrimaryKey (autoGenerate = true)
-    val id: Int?,
+    val id: Int?, // Die eindeutige ID des Bibliothekseintrags (wird automatisch generiert).
 
     @ColumnInfo (name = "name")
-    val name: String
+    val name: String // Der Name des Bibliothekseintrags.
 )

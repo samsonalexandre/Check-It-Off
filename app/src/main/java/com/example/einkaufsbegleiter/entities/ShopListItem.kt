@@ -8,20 +8,20 @@ import androidx.room.PrimaryKey
 @Entity (tableName = "shop_list_item")
 data class ShopListItem(
     @PrimaryKey (autoGenerate = true)
-    val id: Int?,
+    val id: Int?, //Dieses Feld repräsentiert die eindeutige Kennung (ID) eines Einkaufsliste-Eintrags und wird automatisch generiert.
 
     @ColumnInfo (name = "name")
-    val name: String,
+    val name: String, //Dieses Feld speichert den Namen oder die Bezeichnung des Einkaufsliste-Eintrags.
 
     @ColumnInfo (name = "itemInfo")
-    val itemInfo: String = "",
+    val itemInfo: String = "", //Dieses Feld speichert zusätzliche Informationen oder Beschreibungen des Eintrags. Es ist optional und kann leer sein.
 
     @ColumnInfo (name = "itemChecked")
-    val itemChcked: Boolean = false,
+    val itemChcked: Boolean = false, //Dieses Feld gibt an, ob der Eintrag als erledigt markiert ist. Standardmäßig ist er auf "false" gesetzt.
 
     @ColumnInfo (name = "listId")
-    val listId: Int,
+    val listId: Int, //Dieses Feld enthält die ID der Einkaufsliste, zu der dieser Eintrag gehört.
 
     @ColumnInfo (name = "itemType")
-    val itemType: Int = 0
+    val itemType: Int = 0 //Dieses Feld kann den Typ oder die Kategorie des Eintrags speichern, falls erforderlich. Standardmäßig ist es auf den Wert 0 gesetzt.
 )

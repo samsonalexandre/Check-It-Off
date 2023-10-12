@@ -13,13 +13,15 @@ import com.example.einkaufsbegleiter.entities.NoteItem
 import com.example.einkaufsbegleiter.entities.ShopListNameItem
 import com.example.einkaufsbegleiter.utils.HtmlManager
 
-// Diese Klasse ist ein RecyclerView-Adapter für Notizen.
+// Diese Klasse ist ein RecyclerView-Adapter für Einkaufslisten.
 class ShopListNameAdapter(private val listener: Listener): ListAdapter<ShopListNameItem, ShopListNameAdapter.ItemHolder>(ItemComporator()) {
 
+    // Diese Methode erstellt einen neuen Eintragsholder, wenn benötigt.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder.create(parent)
     }
 
+    // Diese Methode bindet Daten an einen Eintragsholder und füllt die Ansicht mit den Einkaufslistendaten.
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         holder.setData(getItem(position), listener)
     }
@@ -32,18 +34,22 @@ class ShopListNameAdapter(private val listener: Listener): ListAdapter<ShopListN
             tvListName.text = shopListNameItem.name
             tvTime.text = shopListNameItem.time
             itemView.setOnClickListener {
-
+                // Hier können Benutzerinteraktionen auf den Eintrag behandelt werden.
             }
 
             imDelete.setOnClickListener {
+                // Löschen-Aktion wird an den Listener übergeben.
                 listener.deleteItem(shopListNameItem.id!!)
             }
 
             imEdit.setOnClickListener {
+                // Bearbeiten-Aktion wird an den Listener übergeben.
                 listener.editItem(shopListNameItem)
             }
 
         }
+
+        // Diese Methode erstellt einen neuen Eintragsholder.
         companion object {
             fun create(parent: ViewGroup): ItemHolder {
                 return ItemHolder(
@@ -53,7 +59,7 @@ class ShopListNameAdapter(private val listener: Listener): ListAdapter<ShopListN
         }
     }
 
-    // Diese innere Klasse vergleicht Einträge für die RecyclerView.
+    // Diese innere Klasse vergleicht Einträge für die RecyclerView, um Änderungen effizient zu erkennen.
     class ItemComporator: DiffUtil.ItemCallback<ShopListNameItem>() {
         override fun areItemsTheSame(oldItem: ShopListNameItem, newItem: ShopListNameItem): Boolean {
             return oldItem.id == newItem.id
@@ -65,6 +71,7 @@ class ShopListNameAdapter(private val listener: Listener): ListAdapter<ShopListN
 
     }
 
+    // Diese Schnittstelle ermöglicht die Kommunikation von Klickereignissen an die übergeordnete Ansicht.
     interface Listener {
         fun deleteItem(id: Int)
         fun editItem(shopListName: ShopListNameItem)

@@ -33,14 +33,17 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
                 R.id.settings ->{
                     Log.d("MyLog", "Settings")
                 }
+                // Wechselt zur Notiz-Ansicht (NoteFragment) und aktualisiert die Ansicht.
                 R.id.notes ->{
                     FragmentManager.setFragment(NoteFragment.newInstance(), this)
                     Log.d("MyLog", "Notes")
                 }
+                // Wechselt zur Einkaufslisten-Ansicht (ShopListNamesFragment) und aktualisiert die Ansicht.
                 R.id.shop_list ->{
                     FragmentManager.setFragment(ShopListNamesFragment.newInstance(), this)
                     Log.d("MyLog", "List")
                 }
+                // Ruft die Funktion onClickNew im aktuellen Fragment auf.
                 R.id.new_item ->{
                     FragmentManager.currentFrag?.onClickNew()
                     Log.d("MyLog", "New")
@@ -50,6 +53,7 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
         }
     }
 
+    // Diese Funktion wird aufgerufen, wenn der "Neu" Button in NewListDialog geklickt wird.
     override fun onClick(name: String) {
         Log.d("MyLog", "$name")
     }

@@ -9,10 +9,12 @@ import com.example.einkaufsbegleiter.entities.NoteItem
 import com.example.einkaufsbegleiter.entities.ShopListItem
 import com.example.einkaufsbegleiter.entities.ShopListNameItem
 
-// Diese abstrakte Klasse definiert die Haupt-Datenbank meiner App.
+// Diese Klasse repräsentiert die Hauptdatenbank der App und ist eine Room Database.
 @Database (entities = [LibraryItem::class, NoteItem::class, ShopListItem::class, ShopListNameItem::class], version = 1)
 abstract class MainDatabase: RoomDatabase() {
+    // Diese abstrakte Funktion gibt ein Datenbankzugriffsschnittstellenobjekt (Dao) zurück.
     abstract fun getDao(): Dao
+    // Begleitobjekt (Companion Object) für den Zugriff auf die Datenbankinstanz.
     companion object{
         @Volatile
         private var INSTANCE: MainDatabase? = null

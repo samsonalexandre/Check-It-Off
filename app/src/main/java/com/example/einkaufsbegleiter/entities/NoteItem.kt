@@ -9,13 +9,13 @@ import java.io.Serializable
 @Entity (tableName = "note_list")
 data class NoteItem (
     @PrimaryKey (autoGenerate = true)
-    val id: Int?,
+    val id: Int?, // Die eindeutige ID der Notiz (wird automatisch generiert).
     @ColumnInfo (name = "title")
-    val title: String,
+    val title: String, // Der Titel der Notiz.
    @ColumnInfo (name = "content")
-    val content: String,
+    val content: String, // Der Inhalt der Notiz.
     @ColumnInfo (name = "time")
-    val time: String,
+    val time: String, // Die Zeit, zu der die Notiz erstellt wurde.
     @ColumnInfo (name = "category")
-    val category: String
+    val category: String // Die Kategorie, zu der die Notiz gehört (optional).
 ): Serializable

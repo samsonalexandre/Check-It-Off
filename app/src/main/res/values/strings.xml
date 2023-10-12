@@ -12,7 +12,7 @@
     <string name="delete_alert">Löschen</string>
     <string name="delete_item">Möchten Sie dieses Element löschen?</string>
     <string name="cancel">Abbrechen</string>
-    <string name="update">Aktualisierung</string>
+    <string name="update">Aktualisieren</string>
     <string name="general">Allgemein</string>
     <string name="chose_note_style">Notizstil auswählen</string>
     <string name="chose_time_format">Zeitformat auswählen</string>
