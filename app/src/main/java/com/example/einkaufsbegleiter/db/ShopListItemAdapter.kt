@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.databinding.ListNameItemBinding
+import com.example.einkaufsbegleiter.databinding.ShopLibraryListItemBinding
 import com.example.einkaufsbegleiter.databinding.ShopListItemBinding
 import com.example.einkaufsbegleiter.entities.ShopListItem
 
@@ -61,6 +62,10 @@ class ShopListItemAdapter(private val listener: Listener) :
 
         // Diese Methode bindet Shop-Library-Item-Daten an die Ansicht.
         fun setLibraryData(shopListItem: ShopListItem, listener: Listener) {
+            val binding = ShopLibraryListItemBinding.bind(view)
+            binding.apply {
+                tvName.text = shopListItem.name
+            }
 
         }
 

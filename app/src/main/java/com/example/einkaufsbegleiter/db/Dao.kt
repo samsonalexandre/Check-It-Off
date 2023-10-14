@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.example.einkaufsbegleiter.entities.LibraryItem
 import com.example.einkaufsbegleiter.entities.NoteItem
 import com.example.einkaufsbegleiter.entities.ShopListItem
 import com.example.einkaufsbegleiter.entities.ShopListNameItem
@@ -21,6 +22,9 @@ interface Dao {
     @Query ("SELECT * FROM shop_list_item WHERE listId LIKE :listId")
     fun getAllShopListItems(listId: Int): Flow<List<ShopListItem>>
 
+    @Query ("SELECT * FROM library WHERE name LIKE :name")
+    suspend fun getAllLibraryItems(name: String): List<LibraryItem>
+
     @Query ("DELETE FROM note_list WHERE id IS :id")
     suspend fun deleteNote(id: Int)
 
@@ -34,6 +38,8 @@ interface Dao {
     suspend fun insertNote(note: NoteItem)
     @Insert
     suspend fun insertItem(shopListItem: ShopListItem)
+    @Insert
+    suspend fun insertLibraryItem(listItem: LibraryItem)
     @Insert
     suspend fun insertShopListName(name: ShopListNameItem)
     @Update

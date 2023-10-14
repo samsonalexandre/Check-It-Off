@@ -3,11 +3,15 @@ package com.example.einkaufsbegleiter.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.databinding.ActivityShopListBinding
@@ -27,6 +31,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     private lateinit var saveItem: MenuItem
     private var edItem: EditText? = null
     private var adapter: ShopListItemAdapter? = null
+    private lateinit var textWatcher: TextWatcher
 
     // Instanziierung des MainViewModels mithilfe von activityViewModels
     private val mainViewModel: MainViewModel by viewModels {
@@ -54,7 +59,26 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         edItem = newItem.actionView?.findViewById(R.id.edNewShopItem) as EditText
         newItem.setOnActionExpandListener(expandActionView())
         saveItem.isVisible = false
+        textWatcher = textWatcher()
         return true
+    }
+
+    private fun textWatcher(): TextWatcher {
+        return object: TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.d("MyLog", "On Text Changed: $s ")
+                mainViewModel.getAllLibraryItems("%$s%")
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        }
     }
 
     // Die Methode überschreibt das Menüverhalten.
@@ -108,6 +132,24 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         }
     }
 
+    private fun libraryItemObserver() {
+        mainViewModel.libraryItems.observe(this) {
+            val tempShopList = ArrayList<ShopListItem>()
+            it.forEach { item ->
+                val shopItem = ShopListItem(
+                    item.id,
+                    item.name,
+                    "",
+                    false,
+                    0,
+                    1
+                )
+                tempShopList.add(shopItem)
+            }
+            adapter?.submitList(tempShopList)
+        }
+    }
+
     // Die Methode initRcView() initialisiert die RecyclerView.
     private fun initRcView() = with(binding) {
         adapter = ShopListItemAdapter(this@ShopListActivity)
@@ -120,12 +162,43 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         return object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem): Boolean {
                 saveItem.isVisible = true
+                edItem?.addTextChangedListener(textWatcher)
+                libraryItemObserver()
+                mainViewModel.getAllItemsFromList(shopListNameItem?.id!!).observe(this@ShopListActivity, Observer { shopListItems ->
+                    adapter?.submitList(shopListItems)
+                    binding.tvEmpty.visibility = if (shopListItems.isEmpty()) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
+                })
+                //mainViewModel.getAllItemsFromList(shopListNameItem?.id!!).removeObserver(this@ShopListActivity)
+                mainViewModel.getAllLibraryItems("%%")
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
                 saveItem.isVisible = false
+                edItem?.removeTextChangedListener(textWatcher)
                 invalidateOptionsMenu()
+                mainViewModel.libraryItems.observe(this@ShopListActivity, Observer { libraryItems ->
+                    val tempShopList = ArrayList<ShopListItem>()
+                    libraryItems.forEach { item ->
+                        val shopItem = ShopListItem(
+                            item.id,
+                            item.name,
+                            "",
+                            false,
+                            0,
+                            1
+                        )
+                        tempShopList.add(shopItem)
+                    }
+                    adapter?.submitList(tempShopList)
+                })
+                //mainViewModel.libraryItems.removeObserver(this@ShopListActivity)
+                edItem?.setText("")
+                libraryItemObserver()
                 return true
             }
 

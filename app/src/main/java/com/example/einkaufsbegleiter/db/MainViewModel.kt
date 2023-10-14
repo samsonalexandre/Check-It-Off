@@ -1,10 +1,12 @@
 package com.example.einkaufsbegleiter.db
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.einkaufsbegleiter.entities.LibraryItem
 import com.example.einkaufsbegleiter.entities.NoteItem
 import com.example.einkaufsbegleiter.entities.ShopListItem
 import com.example.einkaufsbegleiter.entities.ShopListNameItem
@@ -16,6 +18,7 @@ import java.lang.IllegalArgumentException
 // Diese Klasse ist ein ViewModel für die Notizen und Einkaufslisten.
 class MainViewModel(database: MainDatabase): ViewModel() {
     private val dao = database.getDao()
+    val libraryItems = MutableLiveData<List<LibraryItem>>()
 
     // LiveData-Objekt, das eine Liste aller Notizen aus der Datenbank darstellt.
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
@@ -24,6 +27,9 @@ class MainViewModel(database: MainDatabase): ViewModel() {
 
     fun getAllItemsFromList(listId: Int): LiveData<List<ShopListItem>> {
         return dao.getAllShopListItems(listId).asLiveData()
+    }
+    fun getAllLibraryItems(name: String) = viewModelScope.launch {
+        libraryItems.postValue(dao.getAllLibraryItems(name))
     }
 
     // Diese Funktion fügt eine Notiz zur Datenbank hinzu.
@@ -38,6 +44,7 @@ class MainViewModel(database: MainDatabase): ViewModel() {
 
     fun insertShopItem(shopListItem: ShopListItem) = viewModelScope.launch {
         dao.insertItem(shopListItem)
+        if (!isLibraryItemExists(shopListItem.name)) dao.insertLibraryItem(LibraryItem(null, shopListItem.name))
     }
 
     fun updateListItem(item: ShopListItem) = viewModelScope.launch {
@@ -70,10 +77,10 @@ class MainViewModel(database: MainDatabase): ViewModel() {
             }
         }
     }
-//    fun deleteShopList(id: Int, deleteList: Boolean) = viewModelScope.launch {
-//        if (deleteList) dao.deleteShopListName(id)
-//        dao.deleteShopItemsByListId(id)
-//    }
+
+    private suspend fun isLibraryItemExists(name: String): Boolean {
+        return dao.getAllLibraryItems(name).isNotEmpty()
+    }
 
     // Diese innere Klasse ist eine ViewModel Factory, die verwendet wird, um eine Instanz des ViewModels zu erstellen.
     class MainViewModelFactory(private val database: MainDatabase): ViewModelProvider.Factory{
