@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.einkaufsbegleiter.entities.NoteItem
 import com.example.einkaufsbegleiter.entities.ShopListItem
 import com.example.einkaufsbegleiter.entities.ShopListNameItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.IllegalArgumentException
 
 // Diese Klasse ist ein ViewModel für die Notizen und Einkaufslisten.
@@ -57,10 +59,21 @@ class MainViewModel(database: MainDatabase): ViewModel() {
         dao.deleteNote(id)
     }
 
-    // Diese Funktion löscht eine Einkaufsliste aus der Datenbank anhand ihrer ID.
-    fun deleteShopListName(id: Int) = viewModelScope.launch {
-        dao.deleteShopListName(id)
+    // Diese Funktion löscht oder leert eine Einkaufsliste aus der Datenbank anhand ihrer ID.
+    fun deleteShopList(id: Int, deleteList: Boolean) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                if (deleteList) {
+                    dao.deleteShopListName(id)
+                }
+                dao.deleteShopItemsByListId(id)
+            }
+        }
     }
+//    fun deleteShopList(id: Int, deleteList: Boolean) = viewModelScope.launch {
+//        if (deleteList) dao.deleteShopListName(id)
+//        dao.deleteShopItemsByListId(id)
+//    }
 
     // Diese innere Klasse ist eine ViewModel Factory, die verwendet wird, um eine Instanz des ViewModels zu erstellen.
     class MainViewModelFactory(private val database: MainDatabase): ViewModelProvider.Factory{

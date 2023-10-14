@@ -64,7 +64,7 @@ class ShopListItemAdapter(private val listener: Listener) :
 
         }
 
-        // Diese Methode setzt Textdekorations- und Textfarbeneigenschaften für gestrichelte oder normale Anzeige.
+        // Diese Methode setzt Textfarbeneigenschaften für gestrichelte oder normale Anzeige.
         private fun setPaintFlagAndColor(binding: ShopListItemBinding) {
             binding.apply {
                 if (chBox.isChecked) {

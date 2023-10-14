@@ -1,5 +1,6 @@
 package com.example.einkaufsbegleiter.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -15,6 +16,7 @@ import com.example.einkaufsbegleiter.db.ShopListItemAdapter
 import com.example.einkaufsbegleiter.dialogs.EditListItemDialog
 import com.example.einkaufsbegleiter.entities.ShopListItem
 import com.example.einkaufsbegleiter.entities.ShopListNameItem
+import com.example.einkaufsbegleiter.utils.ShareHelper
 
 //ShopListActivity dient dazu, die Einkaufsliste, für eine bestimmte Einkaufsliste anzuzeigen und zu bearbeiten
 class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
@@ -57,9 +59,24 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
 
     // Die Methode überschreibt das Menüverhalten.
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.save_item) {
-            // Wenn "Speichern" ausgewählt ist, wird ein neues Shop-List-Item hinzugefügt.
-            addNewShopItem()
+        when (item.itemId) {
+            R.id.save_item -> {
+                // Wenn "Speichern" ausgewählt ist, wird ein neues Shop-List-Item hinzugefügt.
+                addNewShopItem()
+            }
+            R.id.delete_list -> {
+                mainViewModel.deleteShopList(shopListNameItem?.id!!, true)
+                finish()
+            }
+            R.id.clear_list -> {
+                mainViewModel.deleteShopList(shopListNameItem?.id!!, false)
+            }
+            R.id.share_list -> {
+                startActivity(Intent.createChooser(
+                    ShareHelper.shareShopList(adapter?.currentList!!, shopListNameItem?.name!!),
+                    "Teilen mit"
+                    ))
+            }
         }
         return super.onOptionsItemSelected(item)
     }
