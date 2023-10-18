@@ -1,5 +1,6 @@
 package com.example.einkaufsbegleiter.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import com.example.einkaufsbegleiter.dialogs.NewListDialog
 import com.example.einkaufsbegleiter.fragments.FragmentManager
 import com.example.einkaufsbegleiter.fragments.NoteFragment
 import com.example.einkaufsbegleiter.fragments.ShopListNamesFragment
+import com.example.einkaufsbegleiter.settings.SettingsActivity
 
 // Diese Klasse repräsentiert die Hauptaktivität der App.
 class MainActivity : AppCompatActivity(), NewListDialog.Listener {
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
             when(it.itemId) {
                 R.id.settings ->{
                     Log.d("MyLog", "Settings")
+                    startActivity(Intent(this, SettingsActivity::class.java))
                 }
                 // Wechselt zur Notiz-Ansicht (NoteFragment) und aktualisiert die Ansicht.
                 R.id.notes ->{

@@ -18,7 +18,7 @@ data class ShopListNameItem(
     val time: String, //Dieses Feld speichert den Zeitstempel, wann die Einkaufsliste erstellt oder zuletzt aktualisiert wurde.
 
     @ColumnInfo (name = "allItemCount")
-    val appItemCounter: Int, //Dieses Feld enthält die Gesamtanzahl der Artikel in der Einkaufsliste.
+    val allItemCounter: Int, //Dieses Feld enthält die Gesamtanzahl der Artikel in der Einkaufsliste.
 
     @ColumnInfo (name = "checkedItemCounter")
     val checkedItemCounter: Int, //Hier wird die Anzahl der bereits abgehakten Artikel in der Einkaufsliste gespeichert.
