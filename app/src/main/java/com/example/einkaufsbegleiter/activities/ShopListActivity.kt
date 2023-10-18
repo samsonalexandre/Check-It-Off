@@ -1,7 +1,6 @@
 package com.example.einkaufsbegleiter.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,13 +10,14 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.databinding.ActivityShopListBinding
 import com.example.einkaufsbegleiter.db.MainViewModel
 import com.example.einkaufsbegleiter.db.ShopListItemAdapter
 import com.example.einkaufsbegleiter.dialogs.EditListItemDialog
+import com.example.einkaufsbegleiter.entities.LibraryItem
 import com.example.einkaufsbegleiter.entities.ShopListItem
 import com.example.einkaufsbegleiter.entities.ShopListNameItem
 import com.example.einkaufsbegleiter.utils.ShareHelper
@@ -147,6 +147,11 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
                 tempShopList.add(shopItem)
             }
             adapter?.submitList(tempShopList)
+            binding.tvEmpty.visibility = if (it.isEmpty()) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
     }
 
@@ -164,15 +169,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
                 saveItem.isVisible = true
                 edItem?.addTextChangedListener(textWatcher)
                 libraryItemObserver()
-                mainViewModel.getAllItemsFromList(shopListNameItem?.id!!).observe(this@ShopListActivity, Observer { shopListItems ->
-                    adapter?.submitList(shopListItems)
-                    binding.tvEmpty.visibility = if (shopListItems.isEmpty()) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
-                })
-                //mainViewModel.getAllItemsFromList(shopListNameItem?.id!!).removeObserver(this@ShopListActivity)
+                mainViewModel.getAllItemsFromList(shopListNameItem?.id!!).removeObservers(this@ShopListActivity)
                 mainViewModel.getAllLibraryItems("%%")
                 return true
             }
@@ -181,22 +178,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
                 saveItem.isVisible = false
                 edItem?.removeTextChangedListener(textWatcher)
                 invalidateOptionsMenu()
-                mainViewModel.libraryItems.observe(this@ShopListActivity, Observer { libraryItems ->
-                    val tempShopList = ArrayList<ShopListItem>()
-                    libraryItems.forEach { item ->
-                        val shopItem = ShopListItem(
-                            item.id,
-                            item.name,
-                            "",
-                            false,
-                            0,
-                            1
-                        )
-                        tempShopList.add(shopItem)
-                    }
-                    adapter?.submitList(tempShopList)
-                })
-                //mainViewModel.libraryItems.removeObserver(this@ShopListActivity)
+                mainViewModel.libraryItems.removeObservers(this@ShopListActivity)
                 edItem?.setText("")
                 libraryItemObserver()
                 return true
@@ -220,6 +202,11 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         when(state) {
             ShopListItemAdapter.CHECK_BOX -> mainViewModel.updateListItem(shopListItem)
             ShopListItemAdapter.EDIT -> editListItem(shopListItem)
+            ShopListItemAdapter.EDIT_LIBRARY_ITEM -> editLibraryItem(shopListItem)
+            ShopListItemAdapter.DELETE_LIBRARY_ITEM -> {
+                mainViewModel.deleteLibraryItem(shopListItem.id!!)
+                mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%")
+            }
         }
 
     }
@@ -229,6 +216,15 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         EditListItemDialog.showDialog(this, item, object: EditListItemDialog.Listener {
             override fun onClick(item: ShopListItem) {
                 mainViewModel.updateListItem(item)
+            }
+
+        })
+    }
+    private fun editLibraryItem(item: ShopListItem) {
+        EditListItemDialog.showDialog(this, item, object: EditListItemDialog.Listener {
+            override fun onClick(item: ShopListItem) {
+                mainViewModel.updateLibraryItem(LibraryItem(item.id, item.name))
+                mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%")
             }
 
         })

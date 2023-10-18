@@ -55,6 +55,9 @@ class MainViewModel(database: MainDatabase): ViewModel() {
     fun updateNote(note: NoteItem) = viewModelScope.launch {
         dao.updateNote(note)
     }
+    fun updateLibraryItem(item: LibraryItem) = viewModelScope.launch {
+        dao.updateLibraryItem(item)
+    }
 
     // Diese Funktion aktualisiert den Namen einer Einkaufsliste in der Datenbank.
     fun updateListName(shopListName: ShopListNameItem) = viewModelScope.launch {
@@ -64,6 +67,10 @@ class MainViewModel(database: MainDatabase): ViewModel() {
     // Diese Funktion löscht eine Notiz aus der Datenbank anhand ihrer ID.
     fun deleteNote(id: Int) = viewModelScope.launch {
         dao.deleteNote(id)
+    }
+
+    fun deleteLibraryItem(id: Int) = viewModelScope.launch {
+        dao.deleteLibraryItem(id)
     }
 
     // Diese Funktion löscht oder leert eine Einkaufsliste aus der Datenbank anhand ihrer ID.

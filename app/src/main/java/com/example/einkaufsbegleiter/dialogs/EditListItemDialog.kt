@@ -3,6 +3,7 @@ package com.example.einkaufsbegleiter.dialogs
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.databinding.EditListItemDialogBinding
 import com.example.einkaufsbegleiter.databinding.NewListDialogBinding
@@ -20,6 +21,7 @@ object EditListItemDialog {
             // Setzt die ursprünglichen Werte des Shop-List-Items in die Textfelder des Dialogs.
             edName.setText(item.name)
             edInfo.setText(item.itemInfo)
+            if (item.itemType == 1) edInfo.visibility = View.GONE
             // Bei Klick auf die "Update"-Schaltfläche wird das bearbeitete Item zurückgegeben.
             bUpdate.setOnClickListener {
                 if (edName.text.toString().isNotEmpty()) {
