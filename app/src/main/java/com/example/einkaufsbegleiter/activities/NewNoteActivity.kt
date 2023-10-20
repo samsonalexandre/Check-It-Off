@@ -50,11 +50,11 @@ class NewNoteActivity : AppCompatActivity() {
     }
 
 
-        @SuppressLint("ClickableViewAccessibility")
-        private fun init() {
-            binding.colorPicker.setOnTouchListener(MyTouchListener())
-            pref = PreferenceManager.getDefaultSharedPreferences(this)
-        }
+    @SuppressLint("ClickableViewAccessibility")
+    private fun init() {
+        binding.colorPicker.setOnTouchListener(MyTouchListener())
+        pref = PreferenceManager.getDefaultSharedPreferences(this)
+    }
 
     // Diese Funktion behandelt den Klick auf die Farbauswahl-Buttons.
     private fun onClickColorPicker() = with(binding) {
@@ -152,8 +152,10 @@ class NewNoteActivity : AppCompatActivity() {
 
         edDescription.text.setSpan(
             ForegroundColorSpan(
-                ContextCompat.getColor(this@NewNoteActivity, colorId)),
-            startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                ContextCompat.getColor(this@NewNoteActivity, colorId)
+            ),
+            startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         edDescription.text.trim()
         edDescription.setSelection(startPos)
     }
@@ -202,7 +204,6 @@ class NewNoteActivity : AppCompatActivity() {
     }
 
 
-
     // Diese Funktion konfiguriert die Action Bar.
     private fun actionBarSettings() {
         val ab = supportActionBar
@@ -236,8 +237,8 @@ class NewNoteActivity : AppCompatActivity() {
         binding.colorPicker.startAnimation(openAnim)
     }
 
-    private fun actionMenuCallback(){
-        val actionCallback = object : ActionMode.Callback{
+    private fun actionMenuCallback() {
+        val actionCallback = object : ActionMode.Callback {
             override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
                 menu?.clear()
                 return true
@@ -259,7 +260,6 @@ class NewNoteActivity : AppCompatActivity() {
         }
         binding.edDescription.customSelectionActionModeCallback = actionCallback
     }
-
 
 
     private fun setTextSize() = with(binding) {

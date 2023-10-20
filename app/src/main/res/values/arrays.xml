@@ -11,11 +11,11 @@
 
     <string-array name="time_format_array">
         <item>12:59:59 – 2023/10/18</item>
-        <item>12:59:59 – 18/10/2023</item>
+        <item>12:59:59 – 18.10.2023</item>
     </string-array>
     <string-array name="time_format_values">
         <item>hh:mm:ss - yyyy/MM/dd</item>
-        <item>hh:mm:ss - dd/MM/yyyy</item>
+        <item>hh:mm:ss - dd.MM.yyyy</item>
     </string-array>
 
     <string-array name="chose_theme_array">
