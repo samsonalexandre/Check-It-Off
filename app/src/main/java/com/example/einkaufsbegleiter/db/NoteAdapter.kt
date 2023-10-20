@@ -1,5 +1,6 @@
 package com.example.einkaufsbegleiter.db
 
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +11,11 @@ import com.example.einkaufsbegleiter.R
 import com.example.einkaufsbegleiter.databinding.NoteListItemBinding
 import com.example.einkaufsbegleiter.entities.NoteItem
 import com.example.einkaufsbegleiter.utils.HtmlManager
+import com.example.einkaufsbegleiter.utils.TimeManager
 
 // Diese Klasse ist ein RecyclerView-Adapter für die Anzeige von Notizen in einer RecyclerView.
 
-class NoteAdapter(private val listener: Listener): ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComporator()) {
+class NoteAdapter(private val listener: Listener, private val defPref: SharedPreferences): ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComporator()) {
 
     // Erstellt und gibt einen neuen Eintragsholder zurück, wenn benötigt.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -22,7 +24,7 @@ class NoteAdapter(private val listener: Listener): ListAdapter<NoteItem, NoteAda
 
     // Bindet Daten an einen Eintragsholder und füllt die Ansicht mit den Daten aus dem entsprechenden Notizeneintrag.
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position), listener)
+        holder.setData(getItem(position), listener, defPref)
     }
 
     // Diese innere Klasse repräsentiert einen Eintrag in der RecyclerView.
@@ -30,10 +32,10 @@ class NoteAdapter(private val listener: Listener): ListAdapter<NoteItem, NoteAda
         private val binding = NoteListItemBinding.bind(view)
 
         // Setzt Daten in die Ansichtselemente des Eintragsholders.
-        fun setData(note: NoteItem, listener: Listener) = with(binding) {
+        fun setData(note: NoteItem, listener: Listener, defPref: SharedPreferences) = with(binding) {
             tvTitle.text = note.title
             tvDescription.text = HtmlManager.getFromHtml(note.content).trim()
-            tvTime.text = note.time
+            tvTime.text = TimeManager.getTimeFormat(note.time, defPref)
 
             // Ein Klick-Listener für den gesamten Eintrag, um auf den Eintrag zu klicken.
             itemView.setOnClickListener {

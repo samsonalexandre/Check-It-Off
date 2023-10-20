@@ -13,7 +13,7 @@
             app:useSimpleSummaryProvider="true"
             android:title="@string/chose_note_style" />
         <ListPreference
-            android:defaultValue="hh:mm:ss - yyyy/MM/dd"
+            android:defaultValue="hh:mm:ss - dd.MM.yyyy"
             android:entries="@array/time_format_array"
             android:entryValues="@array/time_format_values"
             android:key="time_format_key"
