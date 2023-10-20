@@ -19,17 +19,17 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var defPref: SharedPreferences
     private var currentMenuItemId = R.id.shop_list
+    private var currentTheme = ""
 
     // Diese Funktion wird aufgerufen, wenn die Aktivität erstellt wird.
     override fun onCreate(savedInstanceState: Bundle?) {
+        defPref = PreferenceManager.getDefaultSharedPreferences(this)
+        currentTheme = defPref.getString("theme_key", "blue").toString()
+        setTheme(getSelectedTheme())
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        defPref = PreferenceManager.getDefaultSharedPreferences(this)
-        setTheme(getSelectedTheme())
         setContentView(binding.root)
         FragmentManager.setFragment(ShopListNamesFragment.newInstance(), this)
-
-        // Hier wird ein Listener für die Bottom Navigation View gesetzt.
         setBottomNavListener()
     }
 
@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
     override fun onResume() {
         super.onResume()
         binding.bNav.selectedItemId = currentMenuItemId
+        if (defPref.getString("theme_key", "blue") != currentTheme) recreate()
     }
 
     private fun getSelectedTheme(): Int {
