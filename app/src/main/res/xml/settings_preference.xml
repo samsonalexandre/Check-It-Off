@@ -2,7 +2,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="@string/general" >
+    <PreferenceCategory android:title="@string/general"
+        android:background="#DADADA">
 
         <ListPreference
             android:defaultValue="Linear"
@@ -20,12 +21,6 @@
             android:icon="@drawable/ic_time_format"
             app:useSimpleSummaryProvider="true"
             android:title="@string/chose_time_format" />
-        <Preference
-            android:title="@string/remove_ads"
-            android:key="remove_ads_key"
-            android:summary="@string/remove_ads_summary"
-            android:icon="@drawable/ic_remove_ads"
-            />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/theme_settings">
 

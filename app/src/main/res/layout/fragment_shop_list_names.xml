@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D2D3D2"
+    android:background="#DADADA"
     tools:context=".fragments.ShopListNamesFragment">
 
     <!-- TODO: Update blank fragment layout -->
