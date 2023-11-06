@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
    <item
-       android:title="Liste löschen"
+       android:title="@string/liste_löschen"
        android:id="@+id/delete_list"
        />
     <item
-        android:title="Liste leeren"
+        android:title="@string/liste_leeren"
         android:id="@+id/clear_list"
         />
     <item
-        android:title="Liste teilen"
+        android:title="@string/liste_teilen"
         android:id="@+id/share_list"
         />
     <item
