@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToDoCheck</string>
+    <string name="app_name">Check It Off</string>
     <string name="settings">Einstellungen</string>
     <string name="notes">Notizen</string>
     <string name="shop_list">Einkaufszettel</string>
@@ -21,7 +21,7 @@
     <string name="note_text_settings">Notiztext-Einstellungen</string>
     <string name="title_text_size">Textgröße der Überschrift</string>
     <string name="content_text_size">Textgröße des Inhalts</string>
-    <string name="leer">Leer</string>
+    <string name="empty">Leer</string>
     <string name="new_products">Neue Produkte</string>
     <string name="name">Name</string>
     <string name="article_info">Artikel info</string>
