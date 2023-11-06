@@ -27,9 +27,9 @@
     <string name="article_info">Artikel info</string>
     <string name="update_article">Artikel aktualisieren</string>
     <string name="text_view">TextView</string>
-    <string name="save">Save</string>
-    <string name="bold">Bold</string>
-    <string name="color">Color</string>
+    <string name="save">Speichern</string>
+    <string name="bold">Fett</string>
+    <string name="color">Farben</string>
     <string name="list_delete">Liste löschen</string>
     <string name="list_clear">Liste leeren</string>
     <string name="list_share">Liste teilen</string>
