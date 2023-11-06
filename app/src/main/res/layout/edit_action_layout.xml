@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:theme="@style/Theme.Einkaufsbegleiter"
         android:ems="10"
-        android:hint="@string/neue_produkte"
+        android:hint="@string/new_products"
         android:inputType="textPersonName" />
 </LinearLayout>

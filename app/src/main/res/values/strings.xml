@@ -22,17 +22,17 @@
     <string name="title_text_size">Textgröße der Überschrift</string>
     <string name="content_text_size">Textgröße des Inhalts</string>
     <string name="leer">Leer</string>
-    <string name="neue_produkte">Neue Produkte</string>
+    <string name="new_products">Neue Produkte</string>
     <string name="name">Name</string>
-    <string name="artikel_info">Artikel info</string>
-    <string name="artikel_aktualisieren">Artikel aktualisieren</string>
+    <string name="article_info">Artikel info</string>
+    <string name="update_article">Artikel aktualisieren</string>
     <string name="text_view">TextView</string>
     <string name="save">Save</string>
     <string name="bold">Bold</string>
     <string name="color">Color</string>
-    <string name="liste_löschen">Liste löschen</string>
-    <string name="liste_leeren">Liste leeren</string>
-    <string name="liste_teilen">Liste teilen</string>
+    <string name="list_delete">Liste löschen</string>
+    <string name="list_clear">Liste leeren</string>
+    <string name="list_share">Liste teilen</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
