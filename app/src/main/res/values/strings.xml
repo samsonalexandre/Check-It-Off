@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Einkaufsbegleiter</string>
+    <string name="app_name">ToDoCheck</string>
     <string name="settings">Einstellungen</string>
     <string name="notes">Notizen</string>
     <string name="shop_list">Einkaufszettel</string>
