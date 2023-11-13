@@ -261,14 +261,14 @@ class NewNoteActivity : AppCompatActivity() {
         binding.edDescription.customSelectionActionModeCallback = actionCallback
     }
 
-
+    //Logic für text grösse auswahl
     private fun setTextSize() = with(binding) {
         edTitle.setTextSize(pref?.getString("title_size_key", "16"))
         edDescription.setTextSize(pref?.getString("content_size_key", "14"))
     }
 
     private fun EditText.setTextSize(size: String?) {
-        if (size != null) this.textSize = size.toFloat()
+        if (size != null) this.textSize = size.toFloat()// prüfe text grösse
     }
 
     private fun getSelectedTheme(): Int {

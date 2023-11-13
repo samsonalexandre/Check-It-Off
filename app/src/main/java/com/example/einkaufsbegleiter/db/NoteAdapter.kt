@@ -35,7 +35,7 @@ class NoteAdapter(private val listener: Listener, private val defPref: SharedPre
         fun setData(note: NoteItem, listener: Listener, defPref: SharedPreferences) = with(binding) {
             tvTitle.text = note.title
             tvDescription.text = HtmlManager.getFromHtml(note.content).trim()
-            tvTime.text = TimeManager.getTimeFormat(note.time, defPref)
+            tvTime.text = TimeManager.getTimeFormat(note.time, defPref)//
 
             // Ein Klick-Listener für den gesamten Eintrag, um auf den Eintrag zu klicken.
             itemView.setOnClickListener {
