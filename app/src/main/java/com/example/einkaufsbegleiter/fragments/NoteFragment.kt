@@ -62,7 +62,7 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
 
     // Diese Funktion initialisiert die RecyclerView für die Anzeige von Notizen.
     private fun initRcView() = with(binding) {
-        defPref = PreferenceManager.getDefaultSharedPreferences(requireActivity())//
+        defPref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
         rcViewNote.layoutManager = getLayoutManager()
         adapter = NoteAdapter(this@NoteFragment, defPref)
         rcViewNote.adapter = adapter
