@@ -63,7 +63,7 @@ Diese App steht unter der [MIT-Lizenz](https://appmaster.io/de/glossary/mit-lize
 ## Kontakt
 Wenn du Fragen, Anmerkungen oder Probleme mit der App hast, zögere nicht, mich zu kontaktieren. Du kannst mich unter [alexander_samson@icloud.com] erreichen.
 
-Vielen Dank, dass du Wiindi verwendest!
+Vielen Dank, dass du Check It Off verwendest!
 
 © 2023 Check It Off-Entwicklungsteam
 
