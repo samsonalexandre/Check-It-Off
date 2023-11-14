@@ -59,6 +59,6 @@ Die App kann leicht an individuelle Anforderungen angepasst werden. Beispielswei
 
 ## Lizenz
 
-Diese App steht unter der [MIT-Lizenz]([LICENSE](https://appmaster.io/de/glossary/mit-lizenz)), was bedeutet, dass sie frei verwendet, geändert und weitergegeben werden kann, solange die Lizenzbedingungen eingehalten werden.
+Diese App steht unter der [MIT-Lizenz](https://appmaster.io/de/glossary/mit-lizenz), was bedeutet, dass sie frei verwendet, geändert und weitergegeben werden kann, solange die Lizenzbedingungen eingehalten werden.
 
 ---
