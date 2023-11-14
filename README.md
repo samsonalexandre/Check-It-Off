@@ -60,5 +60,11 @@ Die App kann leicht an individuelle Anforderungen angepasst werden. Beispielswei
 ## Lizenz
 
 Diese App steht unter der [MIT-Lizenz](https://appmaster.io/de/glossary/mit-lizenz), was bedeutet, dass sie frei verwendet, geändert und weitergegeben werden kann, solange die Lizenzbedingungen eingehalten werden.
+## Kontakt
+Wenn du Fragen, Anmerkungen oder Probleme mit der App hast, zögere nicht, uns zu kontaktieren. Du kannst uns unter [alexander_samson@icloud.com] erreichen.
+
+Vielen Dank, dass du Wiindi verwendest!
+
+© 2023 Check It Off-Entwicklungsteam
 
 ---
