@@ -1,6 +1,6 @@
 # Check It Off-App
 
-Die Einkaufsbegleiter-App ist eine Android-Anwendung, die entwickelt wurde, um die Verwaltung von Einkaufslisten, Notizen und Bibliothekseinträgen zu erleichtern. Die App bietet eine benutzerfreundliche Oberfläche und ermöglicht es den Benutzern, ihre Einkaufsaktivitäten, Notizen und Bibliothekseinträge zu organisieren.
+Die Check It Off-App-App ist eine Android-Anwendung, die entwickelt wurde, um die Verwaltung von Einkaufslisten, Notizen und Bibliothekseinträgen zu erleichtern. Die App bietet eine benutzerfreundliche Oberfläche und ermöglicht es den Benutzern, ihre Einkaufsaktivitäten, Notizen und Bibliothekseinträge zu organisieren.
 
 ![Bildschirmfoto 2023-11-14 um 10 14 13](https://github.com/SI-Classroom-Batch-009/Einkaufsbegleiter/assets/12011808/2a182e9c-739e-4edb-8543-09d965d7dcd8)
 ![Bildschirmfoto 2023-11-14 um 10 14 46](https://github.com/SI-Classroom-Batch-009/Einkaufsbegleiter/assets/12011808/f3064e90-fd6f-45bb-b1be-b5d1b57f2937)
