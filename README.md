@@ -8,58 +8,38 @@ Die Check It Off-App ist eine Android-Anwendung, die entwickelt wurde, um die Ve
 
 
 
-## Funktionen
+# ✅ Check-It-Off – Productivity App (Android)
 
-Die App bietet folgende Hauptfunktionen:
+Check-It-Off ist eine Android-Anwendung zur Verwaltung von Einkaufslisten, Notizen und Bibliothekseinträgen.  
+Die App wurde entwickelt, um lokale Datenspeicherung, strukturierte App-Architektur und Benutzerinteraktion in einer realistischen Produktivitätsanwendung zu demonstrieren.
 
-### Einkaufslisten-Verwaltung
+## 🧠 Technische Konzepte
+- MVVM Architektur
+- Persistente Datenspeicherung mit Room Database
+- Android Lifecycle Components
+- Benutzerdefinierte Einstellungen
+- Dynamische Listenverwaltung
 
-- **Listen erstellen und aktualisieren:** Benutzer können neue Einkaufslisten erstellen oder bestehende Listen aktualisieren.
-- **Einträge hinzufügen und bearbeiten:** Einkaufslisten können Artikel mit Namen, optionalen Informationen und einem Markierungsstatus enthalten.
-- **Listen löschen:** Die App ermöglicht es Benutzern, Einkaufslisten zu löschen.
+## 🛠 Tech Stack
+- Kotlin
+- Android SDK
+- Room Persistence Library
+- ViewModel & LiveData
+- AndroidX Preferences
+- Material Design Components
 
-### Notizenverwaltung
+## 📱 Features
+- Erstellung und Verwaltung von Einkaufslisten
+- Notizen mit Zeitstempel und Kategorien
+- Verwaltung von Bibliothekseinträgen
+- Anpassbare App-Einstellungen (Theme & Zeitformat)
+- Intuitive Benutzeroberfläche
 
-- **Notizen erstellen und bearbeiten:** Benutzer können Notizen mit Titel, Inhalt, Zeitstempel und optionaler Kategorie erstellen oder bearbeiten.
-- **Notizen löschen:** Die App ermöglicht es Benutzern, Notizen zu löschen.
-
-### Bibliotheksverwaltung
-
-- **Bibliothekseinträge erstellen:** Benutzer können Bibliothekseinträge mit einem Namen erstellen.
-- **Bibliothekseinträge löschen:** Die App ermöglicht es Benutzern, Bibliothekseinträge zu löschen.
-
-### Benutzerdefinierte Einstellungen
-
-- **Themenwahl:** Die App unterstützt die Auswahl zwischen einem blauen und einem roten Designthema.
-- **Zeitformatierung:** Benutzer können das gewünschte Zeitformat für Zeitstempel in der App auswählen.
-
-## Technische Details
-
-Die App wurde in Kotlin entwickelt und verwendet die Android Room Persistence Library für die Datenbankverwaltung. Sie bietet eine klare und intuitive Benutzeroberfläche und ermöglicht eine effiziente Organisation von Einkaufsaktivitäten, Notizen und Bibliothekseinträgen.
-
-## Verwendete Bibliotheken
-
-- [AndroidX Core Library (KTX)](https://developer.android.com/jetpack/androidx/releases/core) - Version 1.12.0
-- [Android Room Persistence Library](https://developer.android.com/jetpack/androidx/releases/room) - Version 2.5.2
-- [Android Lifecycle Components](https://developer.android.com/jetpack/androidx/releases/lifecycle) - Version 2.6.2
-- [AndroidX Preference Library (KTX)](https://developer.android.com/jetpack/androidx/releases/preference) - Version 1.2.1
-- [AndroidX AppCompat Library](https://developer.android.com/jetpack/androidx/releases/appcompat) - Version 1.6.1
-- [Google Material Design Library](https://material.io/develop/android/docs/getting-started) - Version 1.9.0
-- [AndroidX ConstraintLayout Library](https://developer.android.com/jetpack/androidx/releases/constraintlayout) - Version 2.1.4
-- [JUnit](https://junit.org/junit4/) - Version 4.13.2
-- [Espresso](https://developer.android.com/training/testing/espresso) - Version 3.5.1
-
-## Verwendung
-
-Um die App zu nutzen, können Benutzer einfach Einkaufslisten, Notizen und Bibliothekseinträge erstellen und verwalten. Die benutzerdefinierten Einstellungen ermöglichen es den Benutzern, das Erscheinungsbild der App an ihre Vorlieben anzupassen.
-
-## Anpassung
-
-Die App kann leicht an individuelle Anforderungen angepasst werden. Beispielsweise kann die Benutzeroberfläche weiter gestaltet oder neue Funktionen hinzugefügt werden.
+## 🎯 Ziel des Projekts
+Das Projekt dient zur Vertiefung von Architekturprinzipien, lokaler Datenpersistenz und strukturiertem Aufbau einer Android-Anwendung.
 
 ## Lizenz
-
-Diese App steht unter der [MIT-Lizenz](https://appmaster.io/de/glossary/mit-lizenz), was bedeutet, dass sie frei verwendet, geändert und weitergegeben werden kann, solange die Lizenzbedingungen eingehalten werden.
+MIT License
 ## Kontakt
 Wenn du Fragen, Anmerkungen oder Probleme mit der App hast, zögere nicht, mich zu kontaktieren. Du kannst mich unter [alexander_samson@icloud.com] erreichen.
 
