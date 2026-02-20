@@ -8,19 +8,19 @@ Die Check It Off-App ist eine Android-Anwendung, die entwickelt wurde, um die Ve
 
 
 
-# ✅ Check-It-Off – Productivity App (Android)
+# Check-It-Off – Productivity App (Android)
 
 Check-It-Off ist eine Android-Anwendung zur Verwaltung von Einkaufslisten, Notizen und Bibliothekseinträgen.  
 Die App wurde entwickelt, um lokale Datenspeicherung, strukturierte App-Architektur und Benutzerinteraktion in einer realistischen Produktivitätsanwendung zu demonstrieren.
 
-## 🧠 Technische Konzepte
+## Technische Konzepte
 - MVVM Architektur
 - Persistente Datenspeicherung mit Room Database
 - Android Lifecycle Components
 - Benutzerdefinierte Einstellungen
 - Dynamische Listenverwaltung
 
-## 🛠 Tech Stack
+## Tech Stack
 - Kotlin
 - Android SDK
 - Room Persistence Library
@@ -28,14 +28,14 @@ Die App wurde entwickelt, um lokale Datenspeicherung, strukturierte App-Architek
 - AndroidX Preferences
 - Material Design Components
 
-## 📱 Features
+## Features
 - Erstellung und Verwaltung von Einkaufslisten
 - Notizen mit Zeitstempel und Kategorien
 - Verwaltung von Bibliothekseinträgen
 - Anpassbare App-Einstellungen (Theme & Zeitformat)
 - Intuitive Benutzeroberfläche
 
-## 🎯 Ziel des Projekts
+## Ziel des Projekts
 Das Projekt dient zur Vertiefung von Architekturprinzipien, lokaler Datenpersistenz und strukturiertem Aufbau einer Android-Anwendung.
 
 ## Lizenz
